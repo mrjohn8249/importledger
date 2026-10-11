@@ -10,6 +10,8 @@ import sys
 import tomllib
 from pathlib import Path
 
+from importledger import __version__
+
 REQUIREMENT_NAME = re.compile(r"^\s*([A-Za-z0-9][A-Za-z0-9._-]*)")
 IGNORED_DIRS = {".git", ".venv", "venv", "__pycache__", "build", "dist", ".tox"}
 
@@ -105,6 +107,7 @@ def check(root: Path, include_optional: bool = False) -> dict[str, list[str]]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", action="version", version=f"importledger {__version__}")
     parser.add_argument("path", nargs="?", default=".", help="project directory (default: current directory)")
     parser.add_argument("--include-optional", action="store_true", help="count optional dependencies as declared")
     parser.add_argument("--json", action="store_true", help="print machine-readable JSON")
